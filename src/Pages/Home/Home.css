@@ -1,0 +1,11 @@
+.movie-card-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.background{
+    background-repeat: no-repeat;
+    background-size: cover;
+}

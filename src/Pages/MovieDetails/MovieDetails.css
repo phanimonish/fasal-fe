@@ -1,0 +1,23 @@
+.poster {
+  width: 100%;
+  min-height: 80vh;
+}
+.details {
+  min-height: 80vh;
+  margin: 2px;
+  padding: 0rem 2rem;
+}
+.movie-details {
+  padding: 2rem;
+}
+.add-my-list-btn {
+  margin: 1rem 0rem !important;
+  border-color: #000 !important;
+  color: #000 !important;
+  padding: 10px !important;
+  width: 200px;
+}
+.add-my-list-btn:hover {
+  background-color: #000 !important;
+  color: #fff !important;
+}
