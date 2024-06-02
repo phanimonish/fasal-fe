@@ -14,13 +14,17 @@ import MenuItem from "@mui/material/MenuItem";
 import SlideshowIcon from "@mui/icons-material/Slideshow";
 import "./Navbar.css";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import { useNavigate } from "react-router-dom";
 
-const pages = ["Home", "My List"];
-const settings = ["Play List", "Logout"];
+const pages = ["Home", "My Lists"];
 
-function Navbar() {
+let timeout = null;
+
+function Navbar({ defaultValue, setSearch, enableSearch = true }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -34,7 +38,20 @@ function Navbar() {
   };
 
   const handleCloseUserMenu = () => {
+    localStorage.clear();
+    navigate("/login");
     setAnchorElUser(null);
+  };
+
+  const handleSearchInput = (e) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    timeout = setTimeout(() => {
+      console.log(e.target.value);
+      setSearch(e.target.value);
+    }, 2000);
   };
 
   return (
@@ -46,7 +63,7 @@ function Navbar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -89,28 +106,41 @@ function Navbar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem href="/" onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Home</Typography>
+              </MenuItem>
+              <MenuItem href="/my-lists" onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">My Lists</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              href="/"
+            >
+              Home
+            </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+              href="/my-lists"
+            >
+              My Lists
+            </Button>
           </Box>
-          <div className="search-container">
-            <SearchRoundedIcon className="search-icon" />
-            <input className="search-input" placeholder="search movie" />
-          </div>
+          {enableSearch && (
+            <div className="search-container">
+              <SearchRoundedIcon className="search-icon" />
+              <input
+                className="search-input"
+                placeholder="search movie"
+                onChange={handleSearchInput}
+                defaultValue={defaultValue}
+              />
+            </div>
+          )}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -133,11 +163,12 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography>My Lists</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography>Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

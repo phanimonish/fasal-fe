@@ -6,8 +6,10 @@
   margin: 1rem;
   padding: 1rem;
   cursor: pointer;
+  min-height: 280px;
 }
 .movie-poster {
+  min-height: 280px;
   height: 280px;
   width: 240px;
 }
@@ -18,14 +20,14 @@
   white-space: nowrap;
 }
 .movie-head {
+  margin-top: 5px;
   display: flex;
-align-items: center;
+  align-items: center;
   justify-content: space-between;
 }
 .my-list {
   display: flex;
   align-items: start !important;
-  
 }
 .movie-info {
   display: flex;
