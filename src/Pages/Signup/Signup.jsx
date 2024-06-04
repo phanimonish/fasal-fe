@@ -33,7 +33,7 @@ export const Signup = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      data: { username, email, password },
+      body: JSON.stringify({ username, password, email }),
     })
       .then((res) => res.json())
       .then((data) => {

@@ -1,6 +1,5 @@
 .movie-card-section {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
-  padding: 1rem;
+  justify-content: center !important;
 }

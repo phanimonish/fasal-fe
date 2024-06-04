@@ -38,8 +38,6 @@ function Navbar({ defaultValue, setSearch, enableSearch = true }) {
   };
 
   const handleCloseUserMenu = () => {
-    localStorage.clear();
-    navigate("/login");
     setAnchorElUser(null);
   };
 
@@ -166,7 +164,9 @@ function Navbar({ defaultValue, setSearch, enableSearch = true }) {
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography>My Lists</Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem
+                onClick={() => (localStorage.clear(), navigate("/login"))}
+              >
                 <Typography>Logout</Typography>
               </MenuItem>
             </Menu>
